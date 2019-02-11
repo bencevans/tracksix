@@ -8,6 +8,9 @@
     "mqtt": "^2.18.8",
     "node-gpsd": "^0.3.0"
   },
+  "bin": {
+    "tracksix": "./bin.js"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
