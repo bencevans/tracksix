@@ -74,6 +74,10 @@ tracker.on('location', (report) => {
 })
 ```
 
+## Development
+
+To start a mock `GPSd` server use [`gpsd-fake`](https://github.com/loewexy/gpsd-fake#readme): `npm install -g gpsd-fake && gpsd-fake`.
+
 ## Licence
 
 MIT &copy; [Ben Evans](https://bencevans.io)
