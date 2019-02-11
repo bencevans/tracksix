@@ -1,7 +1,7 @@
 const fs = require('fs')
 const os = require('os')
 const path = require('path')
-const {EventEmitter} = require('events')
+const { EventEmitter } = require('events')
 const debug = require('debug')('tracksix')
 const gpsd = require('node-gpsd')
 const mqtt = require('mqtt')
@@ -72,7 +72,6 @@ const tracksix = (config) => {
     console.log(tpv)
     emiter.emit('location', report)
     mq.publish('owntracks/' + config.username + '/' + config.deviceId, JSON.stringify(report))
-    
   })
 
   return emiter
