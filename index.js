@@ -17,7 +17,7 @@ const readConfig = (configFilePath) => {
 
   debug('config: reading ' + configFilePath)
   if (fs.existsSync(configFilePath) === false) {
-    throw new Error(`Config file not found at '${configFilePath}'`)
+    throw new Error(`Config file not found at \'${configFilePath}\'`)
   }
 
   return JSON.parse(fs.readFileSync(configFilePath, 'utf8'))
