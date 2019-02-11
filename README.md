@@ -23,13 +23,15 @@ On Debian/Ubuntu:
 
     $ sudo apt install gpsd
 
-Then install tracksix:
+Ensure you [Node.js](https://nodejs.org) installed on your device, then install `tracksix`:
 
     $ npm install --global tracksix
 
 ## Usage
 
     $ tracksix [path to config file]
+
+Tracksix uses the same configuration format as OwnTracks, this can be exported from your OwnTracks mobile app or copy the config.example.json and edit the contents appropriately.
 
 ## Programmatic Usage
 
