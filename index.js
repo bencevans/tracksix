@@ -57,8 +57,6 @@ const tracksix = (config) => {
       tst: Math.round((new Date(tpv.time)).getTime() / 1000),
       vac: 0,
       vel: parseInt(tpv.speed, 10)
-
-      // "acc":700,"alt":0,"batt":88,"conn":"m","lat":51.5336229,"lon":-0.4690348,"tid":"s6","tst":1549898291,"vac":0,"vel":0
     }
 
     console.log(tpv)
