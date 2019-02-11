@@ -26,16 +26,7 @@ const readConfig = (configFilePath) => {
 const tracksix = (config) => {
   const emiter = new EventEmitter()
 
-  const gps = new gpsd.Listener({
-    port: 2947,
-    hostname: 'localhost',
-    logger: {
-      info: function () {},
-      warn: console.warn,
-      error: console.error
-    },
-    parse: true
-  })
+  const gps = new gpsd.Listener()
 
   gps.connect(() => {
     console.log('gpsd: connected')
