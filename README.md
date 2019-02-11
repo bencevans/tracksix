@@ -8,7 +8,7 @@
 * MQTT(S) Reporting
 * MQTT over WebSocket Reporting
 * Programmatic usage or executable use
-* Compatable with huge array of GPS devices through [`GPSd`](http://catb.org/gpsd/)
+* Compatable with a huge array of GPS [devices](http://catb.org/gpsd/hardware.html) through [`GPSd`](http://catb.org/gpsd/)
 * Replays reports when an internet connection arrises
 
 ## Install
