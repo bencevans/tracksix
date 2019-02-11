@@ -1,0 +1,31 @@
+{
+  "name": "tracksix",
+  "version": "0.0.0",
+  "description": "Track your [⛵|🚂|🚙|🚜|🛵|🛷|🚶] with a Raspberry Pi and a GPS.",
+  "main": "index.js",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "mqtt": "^2.18.8",
+    "node-gpsd": "^0.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bencevans/tracksix.git"
+  },
+  "keywords": [
+    "owntracks",
+    "gps",
+    "recorder",
+    "gpsd"
+  ],
+  "author": "Ben Evans <ben@bluechimp.io> (https://bencevans.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bencevans/tracksix/issues"
+  },
+  "homepage": "https://github.com/bencevans/tracksix#readme"
+}
