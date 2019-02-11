@@ -59,9 +59,9 @@ const tracksix = (config) => {
       vel: parseInt(tpv.speed, 10)
     }
 
-    console.log(tpv)
+    debug(tpv)
     emiter.emit('location', report)
-    console.log('owntracks/' + config.username + '/' + config.deviceId)
+    debug('owntracks/' + config.username + '/' + config.deviceId)
     mq.publish('owntracks/' + config.username + '/' + config.deviceId, JSON.stringify(report), {
       retain: true,
       qos: 1
