@@ -6,6 +6,12 @@ const debug = require('debug')('tracksix')
 const gpsd = require('node-gpsd')
 const mqtt = require('mqtt')
 
+const relayErrorEvents = (sourceEmitter, drainEmitter) => {
+  sourceEmitter.on('error', (err) => {
+    drainEmitter.emit('error', err)
+  })
+}
+
 const configPath = (configFilePath) => {
   return configFilePath
     ? path.resolve(process.cwd(), configFilePath)
@@ -27,6 +33,7 @@ const tracksix = (config) => {
   const emiter = new EventEmitter()
 
   const gps = new gpsd.Listener()
+  relayErrorEvents(gps, emiter)
 
   gps.connect(() => {
     gps.watch()
@@ -37,12 +44,11 @@ const tracksix = (config) => {
 
   debug('mqtt connection string: ' + connectionString)
   const mq = mqtt.connect(connectionString)
+  relayErrorEvents(mq, emiter)
 
   mq.on('connect', () => {
     console.log('mqtt: connected')
   })
-
-  mq.on('error', console.error)
 
   gps.on('TPV', (tpv) => {
     const report = {
