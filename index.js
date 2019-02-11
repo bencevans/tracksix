@@ -33,7 +33,7 @@ const tracksix = (config) => {
     console.log('gpsd: connected')
   })
 
-  const connectionString = `mqtts://${config.username}:${config.password}@${config.host}:8883`
+  const connectionString = `mqtts://${config.username}:${config.password}@${config.host}:${config.port}`
 
   debug('mqtt connection string: ' + connectionString)
   const mq = mqtt.connect(connectionString)
