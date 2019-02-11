@@ -29,6 +29,7 @@ const tracksix = (config) => {
   const gps = new gpsd.Listener()
 
   gps.connect(() => {
+    gps.watch()
     console.log('gpsd: connected')
   })
 
