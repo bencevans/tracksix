@@ -17,7 +17,7 @@ const readConfig = (configFilePath) => {
 
   debug('config: reading ' + configFilePath)
   if (fs.existsSync(configFilePath) === false) {
-    throw new Error(`Config file not found at \'${configFilePath}\'`)
+    throw new Error(`Config file not found at '${configFilePath}'`)
   }
 
   return JSON.parse(fs.readFileSync(configFilePath, 'utf8'))
@@ -62,7 +62,7 @@ const tracksix = (config) => {
       lat: Math.round(tpv.lat * 100000) / 100000,
       lon: Math.round(tpv.lon * 100000) / 100000,
       tid: 'ts',
-      tst: (new Date(tpv.time)).getTime(),
+      tst: Math.round((new Date(tpv.time)).getTime() / 1000),
       vac: 0,
       vel: parseInt(tpv.speed, 10)
 
@@ -71,7 +71,11 @@ const tracksix = (config) => {
 
     console.log(tpv)
     emiter.emit('location', report)
-    mq.publish('owntracks/' + config.username + '/' + config.deviceId, JSON.stringify(report))
+    console.log('owntracks/' + config.username + '/' + config.deviceId)
+    mq.publish('owntracks/' + config.username + '/' + config.deviceId, JSON.stringify(report), {
+      retain: true,
+      qos: 1
+    })
   })
 
   return emiter
