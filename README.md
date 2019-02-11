@@ -1,4 +1,4 @@
-# tracksix
+# Tracksix
 
 > Track your [⛵|🚂|🚙|🚜|🛵|🛷|🚶] with a Raspberry Pi and a GPS.
 
