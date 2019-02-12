@@ -56,16 +56,11 @@ const tracksix = (config) => {
   gps.on('TPV', (tpv) => {
     const report = {
       _type: 'location',
-      acc: 8,
       alt: tpv.alt,
-      batt: 22,
-      conn: 'm',
       lat: Math.round(tpv.lat * 100000) / 100000,
       lon: Math.round(tpv.lon * 100000) / 100000,
       tid: 'ts',
-      tst: Math.round((new Date(tpv.time)).getTime() / 1000),
-      vac: 0,
-      vel: parseInt(tpv.speed, 10)
+      tst: Math.round((new Date(tpv.time)).getTime() / 1000)
     }
 
     debug(tpv)
