@@ -69,8 +69,8 @@ const tracksix = (config) => {
     const topic = config.pubTopicBase.replace('%u', config.username).replace('%d', config.deviceId)
     debug(topic)
     mq.publish(topic, JSON.stringify(report), {
-      retain: true,
-      qos: 1
+      retain: config.pubRetain,
+      qos: config.pubQos
     })
   })
 
