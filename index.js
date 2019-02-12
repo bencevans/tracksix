@@ -65,8 +65,10 @@ const tracksix = (config) => {
 
     debug(tpv)
     emiter.emit('location', report)
-    debug('owntracks/' + config.username + '/' + config.deviceId)
-    mq.publish('owntracks/' + config.username + '/' + config.deviceId, JSON.stringify(report), {
+
+    const topic = config.pubTopicBase.replace('%u', config.username).replace('%d', config.deviceId)
+    debug(topic)
+    mq.publish(topic, JSON.stringify(report), {
       retain: true,
       qos: 1
     })
