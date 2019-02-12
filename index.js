@@ -44,7 +44,8 @@ const tracksix = (config) => {
 
   debug('mqtt connection string: ' + connectionString)
   const mq = mqtt.connect(connectionString, {
-    keepalive: config.keepalive
+    keepalive: config.keepalive,
+    rejectUnauthorized: config.allowinvalidcerts === true
   })
   relayErrorEvents(mq, emiter)
 
