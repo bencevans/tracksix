@@ -43,7 +43,9 @@ const tracksix = (config) => {
   const connectionString = `mqtts://${config.username}:${config.password}@${config.host}:${config.port}`
 
   debug('mqtt connection string: ' + connectionString)
-  const mq = mqtt.connect(connectionString)
+  const mq = mqtt.connect(connectionString, {
+    keepalive: config.keepalive
+  })
   relayErrorEvents(mq, emiter)
 
   mq.on('connect', () => {
