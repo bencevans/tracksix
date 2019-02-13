@@ -29,35 +29,55 @@ const readConfig = (configFilePath) => {
   return JSON.parse(fs.readFileSync(configFilePath, 'utf8'))
 }
 
-const tracksix = (config) => {
-  const emiter = new EventEmitter()
+const validConfig = config => {
+  return config
+}
 
-  const gps = new gpsd.Listener()
-  relayErrorEvents(gps, emiter)
+class Tracksix extends EventEmitter {
+  constructor (config) {
+    super()
 
-  gps.connect(() => {
-    gps.watch()
-    console.log('gpsd: connected')
-  })
+    this.config = validConfig(config)
 
-  const auth = config.auth ? `${config.username}:${config.password}@` : ''
-  const proto = config.tls ? 'mqtts' : 'mqtt'
-  const connectionString = `${proto}://${auth}${config.host}:${config.port}`
+    // start services
+    this.gps = this.initGps(config)
+    this.mqtt = this.initMqtt(config)
 
-  debug('mqtt connection string: ' + connectionString)
-  const mq = mqtt.connect(connectionString, {
-    keepalive: config.keepalive,
-    rejectUnauthorized: config.allowinvalidcerts === true,
-    clean: config.cleanSession,
-    clientId: config.clientId || config.username + ' ' + config.deviceId
-  })
-  relayErrorEvents(mq, emiter)
+    // report information up
+    relayErrorEvents(this.gps, this)
+    relayErrorEvents(this.mqtt, this)
 
-  mq.on('connect', () => {
-    console.log('mqtt: connected')
-  })
+    this.gps.on('TPV', this.handleTPV.bind(this))
+    this.mqtt.on('connect', () => { this.emit('info', 'mqtt: connected') })
+  }
 
-  gps.on('TPV', (tpv) => {
+  mqttConnectionString () {
+    const { auth, username, password, tls, host, port } = this.config
+    const authS = auth ? `${username}:${password}@` : ''
+    const protoS = tls ? 'mqtts' : 'mqtt'
+    return `${protoS}://${authS}${host}:${port}`
+  }
+
+  initGps (config) {
+    const gps = new gpsd.Listener()
+
+    gps.connect(() => {
+      gps.watch()
+    })
+
+    return gps
+  }
+
+  initMqtt (config) {
+    return mqtt.connect(this.mqttConnectionString(), {
+      keepalive: config.keepalive,
+      rejectUnauthorized: config.allowinvalidcerts === true,
+      clean: config.cleanSession,
+      clientId: config.clientId || config.username + ' ' + config.deviceId
+    })
+  }
+
+  handleTPV (tpv) {
     const report = {
       _type: 'location',
       alt: tpv.alt,
@@ -67,18 +87,20 @@ const tracksix = (config) => {
       tst: Math.round((new Date(tpv.time)).getTime() / 1000)
     }
 
-    debug(tpv)
-    emiter.emit('location', report)
+    this.emit('location', report)
 
+    const config = this.config
     const topic = config.pubTopicBase.replace('%u', config.username).replace('%d', config.deviceId)
     debug(topic)
-    mq.publish(topic, JSON.stringify(report), {
+    this.mqtt.publish(topic, JSON.stringify(report), {
       retain: config.pubRetain,
       qos: config.pubQos
     })
-  })
+  }
+}
 
-  return emiter
+const tracksix = (config) => {
+  return new Tracksix(config)
 }
 
 module.exports = tracksix
