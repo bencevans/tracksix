@@ -86,7 +86,7 @@ class Tracksix extends EventEmitter {
       alt: tpv.alt,
       lat: Math.round(tpv.lat * 100000) / 100000,
       lon: Math.round(tpv.lon * 100000) / 100000,
-      tid: 'ts',
+      tid: this.config.tid || this.config.deviceId.slice(-2),
       tst: Math.round((new Date(tpv.time)).getTime() / 1000)
     }
 
