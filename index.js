@@ -5,6 +5,7 @@ const { EventEmitter } = require('events')
 const debug = require('debug')('tracksix')
 const gpsd = require('node-gpsd')
 const mqtt = require('mqtt')
+const throttleEnd = require('throttle-end')
 
 const relayErrorEvents = (sourceEmitter, drainEmitter) => {
   sourceEmitter.on('error', (err) => {
@@ -38,6 +39,8 @@ class Tracksix extends EventEmitter {
     super()
 
     this.config = validConfig(config)
+
+    this.reportLocation = throttleEnd(this.reportLocation, config.ping * 1000)
 
     // start services
     this.gps = this.initGps(config)
@@ -87,6 +90,10 @@ class Tracksix extends EventEmitter {
       tst: Math.round((new Date(tpv.time)).getTime() / 1000)
     }
 
+    this.reportLocation(report)
+  }
+
+  reportLocation(report) {
     this.emit('location', report)
 
     const config = this.config

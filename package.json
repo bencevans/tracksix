@@ -6,7 +6,8 @@
   "dependencies": {
     "debug": "^4.1.1",
     "mqtt": "^2.18.8",
-    "node-gpsd": "^0.3.0"
+    "node-gpsd": "^0.3.0",
+    "throttle-end": "0.0.2"
   },
   "bin": {
     "tracksix": "./bin.js"
