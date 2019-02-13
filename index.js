@@ -93,7 +93,7 @@ class Tracksix extends EventEmitter {
     this.reportLocation(report)
   }
 
-  reportLocation(report) {
+  reportLocation (report) {
     this.emit('location', report)
 
     const config = this.config
