@@ -23,7 +23,7 @@ On Debian/Ubuntu:
 
     $ sudo apt install gpsd
 
-Ensure you [Node.js](https://nodejs.org) installed on your device, then install `tracksix`:
+Ensure you have [Node.js](https://nodejs.org) installed on your device, then install `tracksix`:
 
     $ npm install --global tracksix
 
