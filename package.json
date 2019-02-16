@@ -13,8 +13,8 @@
     "tracksix": "./bin.js"
   },
   "devDependencies": {
-    "standard": "^12.0.1",
-    "semantic-release": "^15.13.3"
+    "standard": "12.0.1",
+    "semantic-release": "15.13.4"
   },
   "scripts": {
     "test": "standard",
