@@ -40,7 +40,7 @@ class Tracksix extends EventEmitter {
 
     this.config = validConfig(config)
 
-    this.reportLocation = throttleEnd(this.reportLocation, config.ping * 1000)
+    this.reportLocation = throttleEnd(this.reportLocation, config.ping * 1000, this)
 
     // start services
     this.gps = this.initGps(config)
