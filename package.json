@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "standard": "13.1.0",
-    "semantic-release": "15.13.19"
+    "semantic-release": "15.13.21"
   },
   "scripts": {
     "test": "standard",
