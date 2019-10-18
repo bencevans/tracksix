@@ -76,6 +76,51 @@ tracker.on('location', (report) => {
 })
 ```
 
+## Run as a service
+
+Write the following to `/etc/systemd/system/tracksix.service` and update the path to node `which node` and tracksix `which tracksix`.
+
+```
+[Unit]
+Description=Tracksix Service
+After=network.target
+
+[Service]
+Type=simple
+# Another Type: forking
+User=pi
+WorkingDirectory=/home/pi
+ExecStart=/home/pi/.nvm/versions/node/v10.13.0/bin/node /home/pi/.nvm/versions/node/v10.13.0/bin/tracksix
+Restart=on-failure
+# Other restart options: always, on-abort, etc
+
+# The install section is needed to use
+# `systemctl enable` to start on boot
+# For a user service that you want to enable
+# and start automatically, use `default.target`
+# For system level services, use `multi-user.target`
+[Install]
+WantedBy=multi-user.targe
+```
+
+Afterwards you need to enable the service:
+
+```
+$ sudo systemctl enable tracksix.service
+```
+
+Then start the service with:
+
+```
+$ sudo systemctl start tracksix
+```
+
+You can check the status / logs with:
+
+```
+$ systemctl status tracksix.service
+```
+
 ## Development
 
 To start a mock `GPSd` server use [`gpsd-fake`](https://github.com/loewexy/gpsd-fake#readme): `npm install -g gpsd-fake && gpsd-fake`.
