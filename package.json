@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "debug": "^4.1.1",
-    "mqtt": "^3.0.0",
+    "mqtt": "^4.3.7",
     "node-gpsd": "^0.3.0",
     "throttle-end": "git+https://github.com/bencevans/throttle-end.git#961a27a72c82310797382e1083cb85e9059f24e1"
   },
