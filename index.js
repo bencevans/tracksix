@@ -82,7 +82,7 @@ class Tracksix extends EventEmitter {
 
   handleTPV (tpv) {
     if (('lat' in tpv === false) || ('lon' in tpv === false)) {
-      return console.warn("Skipping, no lon/lat")
+      return console.warn('Skipping, no lon/lat')
     }
 
     const report = {
