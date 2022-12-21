@@ -87,7 +87,7 @@ class Tracksix extends EventEmitter {
 
     const report = {
       _type: 'location',
-      alt: tpv.alt,
+      alt: tpv.alt || 0,
       lat: Math.round(tpv.lat * 100000) / 100000,
       lon: Math.round(tpv.lon * 100000) / 100000,
       tid: this.config.tid || this.config.deviceId.slice(-2),
