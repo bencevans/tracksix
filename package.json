@@ -1,6 +1,6 @@
 {
   "name": "tracksix",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Track your [⛵|🚂|🚙|🚜|🛵|🛷|🚶] with a Raspberry Pi and a GPS.",
   "main": "index.js",
   "dependencies": {
